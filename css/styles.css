@@ -1,6 +1,6 @@
-html {
+/* html {
   scroll-behavior: smooth;
-}
+} */
 
 :where([class^="ri-"])::before {
   content: "\f3c2";

@@ -63,8 +63,13 @@ document.addEventListener("DOMContentLoaded", function () {
   const links = document.querySelectorAll('a[href^="#"]');
   const mobileMenu = document.getElementById("mobile-menu");
 
+  // Prevent default browser hash scrolling
+  if (window.location.hash) {
+    window.scrollTo(0, 0);
+  }
+
   // Function to scroll to element and remove hash
-  function scrollToElement(targetId) {
+  function scrollToElement(targetId, smooth = true) {
     if (!targetId) return;
     
     const targetElement = document.getElementById(targetId);
@@ -76,7 +81,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     
     // Scroll to target
-    targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (smooth) {
+      document.documentElement.style.scrollBehavior = 'smooth';
+      targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
+      // Reset to auto after scrolling completes
+      setTimeout(() => {
+        document.documentElement.style.scrollBehavior = 'auto';
+      }, 1000);
+    } else {
+      window.scrollTo({ top: targetElement.offsetTop, behavior: 'instant' });
+    }
     
     // Remove hash from URL
     history.replaceState(null, "", window.location.pathname);
@@ -89,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const targetId = href.substring(1);
       
       e.preventDefault();
-      scrollToElement(targetId);
+      scrollToElement(targetId, true); // Always smooth for link clicks
     });
   });
   
@@ -98,7 +112,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const targetId = window.location.hash.substring(1);
     // Small delay to ensure DOM is ready
     setTimeout(() => {
-      scrollToElement(targetId);
+      // Use instant scroll for #success, smooth for others
+      const isSuccess = targetId === "success";
+      scrollToElement(targetId, !isSuccess);
     }, 100);
   }
 });
