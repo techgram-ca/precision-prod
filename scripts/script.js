@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (!card || !bubble) return;
 
   // Show card after 5–6 seconds
-  const delay = 5000 + Math.random() * 1000;
+  const delay = 1000 + Math.random() * 1000;
   const showTimer = setTimeout(showCard, delay);
 
   function showCard() {
