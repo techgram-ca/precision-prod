@@ -141,7 +141,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // CTA button — scroll to contact form and pre-fill project details
   ctaBtn.addEventListener("click", function () {
-    const contactSection = document.getElementById("contact");
+    const formCard       = document.getElementById("contact-form-card");
+    const offerBanner    = document.getElementById("offer-applied-banner");
     const detailsTextarea = document.querySelector('textarea[name="details"]');
 
     if (detailsTextarea) {
@@ -151,10 +152,14 @@ document.addEventListener("DOMContentLoaded", function () {
         "I'd love to discuss my project requirements and get started soon!";
     }
 
+    if (offerBanner) {
+      offerBanner.classList.remove("hidden");
+    }
+
     hideCard(function () {
-      if (contactSection) {
+      if (formCard) {
         document.documentElement.style.scrollBehavior = "smooth";
-        contactSection.scrollIntoView({ behavior: "smooth", block: "start" });
+        formCard.scrollIntoView({ behavior: "smooth", block: "start" });
         setTimeout(function () {
           document.documentElement.style.scrollBehavior = "auto";
           if (detailsTextarea) detailsTextarea.focus();
