@@ -162,7 +162,6 @@ document.addEventListener("DOMContentLoaded", function () {
         formCard.scrollIntoView({ behavior: "smooth", block: "start" });
         setTimeout(function () {
           document.documentElement.style.scrollBehavior = "auto";
-          if (detailsTextarea) detailsTextarea.focus();
         }, 900);
       }
     });
